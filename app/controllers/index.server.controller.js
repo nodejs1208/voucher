@@ -1,4 +1,8 @@
 
 exports.render = function (req,res) {
-  res.render('index',{title:'hello'});
+
+
+
+ 
+  res.render('index',{title:req.session.lastVisit});
 };
