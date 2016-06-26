@@ -1,4 +1,4 @@
 
 exports.render = function (req,res) {
-  res.send('hello');
+  res.render('index',{title:'hello'});
 };
