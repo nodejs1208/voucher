@@ -31,7 +31,7 @@ var teacherSchema = new Schema({
             return password.lenth >=4;
           },'암호를 4자이상'
         ]
-    }
+    },
     name: {
         type: String,
         trim: true,
@@ -56,7 +56,7 @@ var teacherSchema = new Schema({
         enum: ['regular', 'temporary']
     }, //룰로 변경
     residentORhome: {
-        type: String enum: ['resident', 'home']
+        type: String, enum: ['resident', 'home']
     }, //룰로 변경
     career: String,
     academic_background: String,
@@ -72,11 +72,11 @@ teacherSchema.set('toJSON', {
 });
 
 teacherSchema.pre('save',function (next) {
-  if(){
-    next()
-  }else{
-    next(new Error())
-  }
+  // if(){
+  //   next()
+  // }else{
+  //   next(new Error())
+  // }
 })
 
 teacherSchema.post('save',function(next){
