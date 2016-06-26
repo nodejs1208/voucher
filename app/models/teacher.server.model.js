@@ -21,8 +21,14 @@ teacher_id : String,
 password : String,
 name :String,
 email:String,
-phone:number,
+phone:String,
 organization:String, //나중에 기관 회원가입에서 참조해야함
-work_position:String //룰로 변경
+work_position:String, //룰로 변경
+residentORhome:String,//룰로 변경
+career:String,
+academic_background:String,
+certificate:String
 
-})
+});
+
+mongoose.model('Teacher',teacherSchema);
