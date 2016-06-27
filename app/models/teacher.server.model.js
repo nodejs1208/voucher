@@ -60,9 +60,24 @@ var teacherSchema = new Schema({
     }, //룰로 변경
     career: String,
     academic_background: String,
-    certificate: String
+    certificate: String,
+    salt:{
+      type:String
+    },
+    provider:{
+      type:String,
+      required:'Provider 가 필요함'
+    },
+    providerId:String,
+    providerData:{},
+    created:{
+      type:Date,
+      default:Date.now
+    }
+
 
 });
+
 
 
 mongoose.model('Teacher', teacherSchema);
@@ -72,12 +87,40 @@ teacherSchema.set('toJSON', {
 });
 
 teacherSchema.pre('save',function (next) {
-  // if(){
-  //   next()
-  // }else{
-  //   next(new Error())
-  // }
-})
+if(this.password){
+  this.salt = new Buffer(crypto.randomByteds(16).toString('base64'),'base64');
+
+  this.password = this.hashPassword(this.password);
+}
+next();
+});
+
+
+
+teacherSchema.methods.hashPassword = function(password){
+  return crypto.pbkdf2Sync(password,this.salt,10000,64).toString('base64');
+
+};
+
+teacherSchema.statics.findUniqueTeacher_id = function(teacher_id,suffix,callback){
+  var _this =this;
+  var possibleTeacher_id = teacher_id +(suffix ||'');
+
+  _this.findOne({
+    teacher_id : possibleTeacher_id
+  },function(err,teacher){
+
+    if(!err){
+      if(!teacher){
+          callback(possibleTeacher_id);
+      }else{
+        return _this.findUniqueTeacher_id(teacher_id,(suffix ||0)+1,callback);
+      }
+    }else{
+      callback(null);
+    }
+  });
+};
 
 teacherSchema.post('save',function(next){
   if(this.isNew){
@@ -85,4 +128,4 @@ teacherSchema.post('save',function(next){
   }else{
     console.log('updated');
   }
-})
+});
