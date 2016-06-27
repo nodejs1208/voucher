@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    <% for(var i in messages) { %>
+      <div class="flash"><%= messages[i] %></div>
+      <% } %>
+      <form action="signup" method="post">
+        <div>
+          <label> teacher_id :</label>
+          <input type="text" name="teacher_id"/>
+        </div>
+        <div>
+          <label> password:</label>
+          <input type="password" name="password"/>
+        </div>
+        <div>
+          <label> teacher_id</label>
+          <input type="text" name="teacher_id"/>
+        </div>
+
+        <div>
+          <label> name : </label>
+          <input type="text" name="name"/>
+        </div>
+        <div>
+          <label> email :</label>
+          <input type="email" name="email"/>
+        </div>
+        <div>
+          <label> phone :</label>
+          <input type="tel" name="phone"/>
+        </div>
+        <div>
+          <label> organization :</label>
+  <select name="organization">
+  <option value="volvo">Volvo XC90</option>
+  <option value="saab">Saab 95</option>
+  <option value="mercedes">Mercedes SLK</option>
+  <option value="audi">Audi TT</option>
+</select>
+        </div>
+        <div>
+          <label> work_position :</label>
+
+
+          <input type="radio" name="work_position" value="male" checked> Male<br>
+<input type="radio" name="work_position" value="female"> Female<br>
+<input type="radio" name="work_position" value="other"> Other
+        </div>
+
+        <div>
+          <label> residentORhome :</label>
+
+
+          <input type="radio" name="residentORhome" value="male" checked> Male<br>
+<input type="radio" name="residentORhome" value="female"> Female<br>
+<input type="radio" name="residentORhome" value="other"> Other
+        </div>
+        <div>
+          <label> careeracademic_background : </label>
+          <input type="text" name="careeracademic_background"/>
+        </div>
+
+        <div>
+          <label> career : </label>
+          <input type="text" name="career"/>
+        </div>
+
+</form>
+  </body>
+</html>
