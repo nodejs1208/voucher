@@ -40,13 +40,13 @@ var teacherSchema = new Schema({
     email: {
         type: String,
         trim: true,
-        unique: true,
+
         match: [/.+\@.+\..+/,'이메일형식']
     },
     phone: {
         type: String,
         trim: true,
-        unique: true
+ 
     },
     organization: {
         type: String

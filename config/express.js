@@ -17,9 +17,7 @@ module.exports =function(){
     app.use(compress());
   }
 
-  app.use(bodyParser.urlencoded({
-    extended:true
-  }));
+app.use( bodyParser.urlencoded({ extended: true }) );
   app.use(bodyParser.json());
   app.use(methodOverride());
 
