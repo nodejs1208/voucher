@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var	crypto = require('crypto');
 var teacherSchema = new Schema({
     //   선생님 아이디 string
     // * 비밀번호 password string
@@ -28,7 +28,7 @@ var teacherSchema = new Schema({
         required: true,
         validate:[
           function (password) {
-            return password.lenth >=4;
+            return password.length >=4;
           },'암호를 4자이상'
         ]
     },
@@ -79,8 +79,6 @@ var teacherSchema = new Schema({
 });
 
 
-
-mongoose.model('Teacher', teacherSchema);
 teacherSchema.set('toJSON', {
     getters: true,
     virtuals: true
@@ -88,20 +86,21 @@ teacherSchema.set('toJSON', {
 
 teacherSchema.pre('save',function (next) {
 if(this.password){
-  this.salt = new Buffer(crypto.randomByteds(16).toString('base64'),'base64');
-
-  this.password = this.hashPassword(this.password);
+		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+console.log(this.password);
+	this.password = this.hashPassword(this.password);
 }
 next();
 });
 
+teacherSchema.methods.hashPassword = function(password) {
 
-
-teacherSchema.methods.hashPassword = function(password){
-  return crypto.pbkdf2Sync(password,this.salt,10000,64).toString('base64');
-
+	return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 };
 
+teacherSchema.methods.authenticate = function(password) {
+ return this.password === this.hashPassword(password);
+};
 teacherSchema.statics.findUniqueTeacher_id = function(teacher_id,suffix,callback){
   var _this =this;
   var possibleTeacher_id = teacher_id +(suffix ||'');
@@ -129,3 +128,7 @@ teacherSchema.post('save',function(next){
     console.log('updated');
   }
 });
+
+
+
+mongoose.model('Teacher', teacherSchema);

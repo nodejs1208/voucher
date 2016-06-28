@@ -1,9 +1,9 @@
 var passport = require('passport');
 
-var LocalStrategy = require('passport-local').strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var Teacher = require('mongoose').model('Teacher');
 
-model.exports =function(){
+module.exports =function(){
 
   passport.use(new LocalStrategy(function(teacher_id,password,done){
 
